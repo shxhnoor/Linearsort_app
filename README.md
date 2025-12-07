@@ -9,4 +9,4 @@ Worst case:
 The worst case is where the runner is in the last lane or isn’t in the heat at all. The program has to go through every single lane before finding them or verifying they were missing. This scenario inevitably takes the longest, showing the maximum time the linear search algorithm can maintain. 
 
 Best case: 
-The best case here would be an instance where the runner is put in the very first lane of the heat. The program would find them immediately, so only one check is needed throughout the whole scenario. This is the fastest way as it shows how efficiently the algorithm works when the athletes name is at the beginning
+The best case here would be an instance where the runner is put in the very first lane of the heat. The program would find them immediately, so only one check is needed throughout the whole scenario. This is the fastest way as it shows how efficiently the algorithm works when the athletes name is at the beginning.
