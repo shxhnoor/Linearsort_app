@@ -1,1 +1,1 @@
-# Linearsort_app
+# Linear Search Visualization
