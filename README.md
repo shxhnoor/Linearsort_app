@@ -6,9 +6,7 @@ Normal case:
 
 The average case here is where the athlete one would be looking for is placed in the middle of the heat list. The program checks lanes before finding their name linearly, so it takes more steps than the best case but fewer steps than the worst case. 
 
-Worst case:  
-
-[https://drive.google.com/file/d/1Z5ZRsHrnKv4FHkYOAQmyejJsRaMeop-q/view?usp=drive_link](url)
+Worst case: [https://drive.google.com/file/d/1Z5ZRsHrnKv4FHkYOAQmyejJsRaMeop-q/view?usp=drive_link](url)
 
 The worst case is where the runner is in the last lane or isn’t in the heat at all. The program has to go through every single lane before finding them or verifying they were missing. This scenario inevitably takes the longest, showing the maximum time the linear search algorithm can maintain. 
 
