@@ -21,9 +21,9 @@ def create_heat(target_runner, count):
 def html_heat(heat, c_index, f_index):
     total = len(heat)  #here we are calculating and creating the progress percentage of each search
     if c_index == -1:
-        progress_percent = 0
+        prog_percent = 0
     elif c_index >= total:
-        progress_percent = 100
+        prog_percent = 100
     else: #detects how into the list we have checked!
         prog_percent = int((c_index / total) * 100)
 
@@ -108,7 +108,7 @@ def html_heat(heat, c_index, f_index):
 
 def step_search(heat, target, var):
     if var == -1:
-        var = 0.    # if this is the first click, we start at index 0
+        var = 0    # if this is the first click, we start at index 0
     if var >= len(heat):  # If we've gone past the heat length, we didn’t find the runner :((
         return (
             f" <b>{target}</b> isn't in this heat, go find them coach!<br>All lanes are checked.",
@@ -212,6 +212,9 @@ with gr.Blocks() as demo:
 
   
     def handle_steps(stage, name, heat):
+        # FIX: prevent overwriting search stage
+        if stage == 3:
+            return gr.update(), gr.update(), gr.update(), stage, heat
         return next_step(stage, name, heat)
 #move through steps 1 2 and 3
 
