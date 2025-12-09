@@ -21,7 +21,6 @@ Edge Case: [Edge Case Video](https://drive.google.com/file/d/1XCwqzf_0Hdvc43Ocx-
 If the user does not search for any name, the app will kindly ask them to enter a name. This also makes sure the search does not run with no data being input, which keeps it stable and user-friendly. Another example could be if a user types the name with a typo, it might not end up finding the runner. However, I did end up making the program run case-insensitively, so it can handle capitalization differences when a name is being searched. 
 
 
-
 # Problem Breakdown
 ### Why I chose Linear Search:
 I chose to implement and interpret Linear Search through a Track and Field-themed interactive app. The premise of the game is simple, as the user plays the role of a track coach preparing his heat for a big race. In order to prepare for the race, the coach must type the name of the runner they want to find in the heat, and the name is saved and used throughout the duration of the app to find themselves. As the search begins, the app randomly generates a heat of eight world-class sprinters. Each athlete is showcased inside of a lane box that includes an index number, lane number, and the athlete’s name. The lane assignments are stored internally in a Python list. Also, there is a controlled probability rate that the runner on the coach is searching for may or may not even appear in the heat list. This ensures that the program I built can demonstrate both possible outcomes of Linear Search, as the target could be or could not be found. 
@@ -63,5 +62,30 @@ This project was created by Shahnoor Sarfraz, CISC 121 on December 6, 2025.
 
 In terms of AI usage up to Level 4: Any AI that I have used was mainly used with the ChatGPT mini model-5 to **only** ask for clarification of certain inquiries, and not necessarily the answer for it. Below is where I will be stating where AI had helped me with certain areas in my work.
 
+a) Documentation Help 
+
+To start off, I used AI to help understand what all steps of the project were explicitly asking me to do, ensuring that I would not misinterpret anything in the assignment, as well as making it clear and easy to read. [Used ChatGPT, GPT-5 mini, in chat mode, with the prompt: "Explain this project given to me and please make it simplified and very easy to read." Used only to clarify project and instructions] 
+
+b) Learning how to Use Gradio 
+
+Going into this project, I realized I did not know how to install gradio in my terminal on VS Code, so I did end up asking AI to teach me step-by-step on how to install is, and help me build multi-step interfaces which were interactive which then let me to create my own theme for the program. [Used ChatGPT, GPT-5 mini, in chat mode, with the prompt: "Explain to me how to install Gradio. Also explain how to make a multi-step interactive UI in Gradio 6.0.2 and please keep it simple." Used only for learning and understanding Gradio] 
+
+c) Code Review 
+
+While I wrote the actual code myself, I asked AI to help review comments and help me with logical errors, not necessarily for the answers but instructions as to where I went wrong and how I can fix it. [Used ChatGPT, GPT-5 mini, in chat mode, with the prompt: "Please review my code and suggest improvements for clarity and commenting." Used only to review and improve my own code] 
+
+d) Flowchart Inquiries 
+
+I created the flowchart using my own ideas and structure, but then used AI to help me see if my flowchart was correct or not according to my algorithm. [Used ChatGPT, GPT-5 mini, in chat mode, with the prompt: "Is this flowchart logic, right?" Used only to review and improve my flowchart] 
+
+e) Computational Breakdown 
+
+For decomposition specifically, I had asked AI if it could provide me instructions on how to outline the breakdown, mainly decomposition and the algorithm design. I did not get any answers, rather I worked on writing the information myself.  
+
+f) HTML Formatting 
+
+I did not really use AI much for this, but all HTML work was written by me with the help of YouTube tutorials, specifically this video: https://www.youtube.com/watch?v=FQdaUv95mR8, and used AI for clarity only. 
+ 
+I was responsible for all the ultimate choices, code delivery, testing, and written evaluations. The AI tools that were stated above were explicitly used to support learning, refine ideas, provide explanations, and help with documentation. 
 
 
