@@ -14,6 +14,7 @@ The worst case is where the runner is in the last lane or isn’t in the heat at
 
 Best case: 
 [https://drive.google.com/file/d/1c4XFr9RVoxXZH-mi3NUe2o_0y30eFqa_/view?usp=drive_link](url)
+
 The best case here would be an instance where the runner is put in the very first lane of the heat. The program would find them immediately, so only one check is needed throughout the whole scenario. This is the fastest way as it shows how efficiently the algorithm works when the athletes name is at the beginning.
 # Problem Breakdown
 ### Why I chose Linear Search:
