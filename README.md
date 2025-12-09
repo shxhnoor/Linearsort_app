@@ -8,11 +8,12 @@ The average case here is where the athlete one would be looking for is placed in
 
 Worst case:  
 
+[https://drive.google.com/file/d/1Z5ZRsHrnKv4FHkYOAQmyejJsRaMeop-q/view?usp=drive_link](url)
+
 The worst case is where the runner is in the last lane or isn’t in the heat at all. The program has to go through every single lane before finding them or verifying they were missing. This scenario inevitably takes the longest, showing the maximum time the linear search algorithm can maintain. 
 
 Best case: 
 [https://drive.google.com/file/d/1c4XFr9RVoxXZH-mi3NUe2o_0y30eFqa_/view?usp=drive_link](url)
-
 The best case here would be an instance where the runner is put in the very first lane of the heat. The program would find them immediately, so only one check is needed throughout the whole scenario. This is the fastest way as it shows how efficiently the algorithm works when the athletes name is at the beginning.
 # Problem Breakdown
 ### Why I chose Linear Search:
