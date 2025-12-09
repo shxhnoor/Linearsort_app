@@ -1,75 +1,74 @@
 import gradio as gr
 import random
 
-# -----------------------------------------------------
-# Helper: Generate athletes in lanes
-# -----------------------------------------------------
+# --- To start this function will be created the "heat" (list of runners in the race)
 def create_heat(target_runner, count):
-    athlete_pool = [
-        "Lyles", "Coleman", "Omanyala", "Blake",
+    runner_list = [
+        "Lyles", "Coleman", "Omanyala", "Blake", #I wrote down random well-known athletes and my name down for fun
         "De Grasse", "Jacobs", "Hughes", "Simbine",
-        "Kerley", "Shahnoor"
-    ]
-    if target_runner not in athlete_pool:
-        athlete_pool.append(target_runner)
-
-    heat = random.sample(athlete_pool, count)
+        "Mclaughlin", "Shahnoor"
+    ] #this if-statement basically states the if the user types in a runner that is not already here, I will add them to the list
+    runner_list.append(target_runner)
+#This randomly picks a number of runners that is equal to the count to create a heatsheet
+   #also, I wanted to make this app to work under worse-case and average-case scenarios so I created a small chance that the target is "not" in the heat
+    heat = random.sample(runner_list, count)
     if random.random() < 0.25 and target_runner in heat:
         heat.remove(target_runner)
     return heat
 
-# -----------------------------------------------------
-# Render heat with lane-specific emojis
-# -----------------------------------------------------
-def render_heat(heat, current_index, found_index):
-    total = len(heat)
-    if current_index == -1:
-        progress_percent = 0
-    elif current_index >= total:
-        progress_percent = 100
-    else:
-        progress_percent = int((current_index / total) * 100)
+# --- NOW I am building the HTML Layout that visually shows all the lanes, progress bar, and the app itself.
 
-    progress_html = f"""
+def html_heat(heat, c_index, f_index):
+    total = len(heat)  #here we are calculating and creating the progress percentage of each search
+    if c_index == -1:
+        progress_percent = 0
+    elif c_index >= total:
+        progress_percent = 100
+    else: #detects how into the list we have checked!
+        prog_percent = int((c_index / total) * 100)
+
+#actuallycreating the progress bar, background width, height, border-rad, etc.
+    prog_html = f"""
     <div style="background:#CFD8DC; border-radius:10px; height:18px; width:100%; margin-bottom:15px;">
         <div style="
             background:#0D47A1;
-            width:{progress_percent}%;
+            width:{prog_percent}%; 
             height:100%;
             border-radius:10px;
             transition: width 0.3s;
         "></div>
     </div>
     <div style="text-align:right; font-size:12px; color:#37474F; margin-bottom:10px;">
-        {progress_percent}% searched
+        {prog_percent}% searched
     </div>
     """
 
     lane_html = ""
+#So here we are looping through each of the lanes and are showing whether its been checked or not
     for i, athlete in enumerate(heat):
         bg = "#F5F5F5"
         border = "2px solid #888"
         emoji = ""
         status = ""
-
-        if i == current_index:
+#if this is the lane we are currently checking.... make it yellow
+        if i == c_index:
             bg = "#F4D371"          
             border = "3px solid #FFA000"
             emoji = "🏃"
             status = "Checking…"
-
-        elif i < current_index:
+#elif its the lane below the current index, indicate that we have checked it already.
+        elif i < c_index:
             bg = "#ECEFF1"          
             border = "2px solid #B0BEC5"
-            emoji = "✅"
+            emoji = ""
             status = "Checked"
-
-        if i == found_index:
+#now, if its the lane we have found the target runner in, state found and make it green
+        if i == f_index:
             bg = "#8BC34A"          
             border = "3px solid #558B2F"
             emoji = "🎯"
             status = "FOUND!"
-
+#Here I am adding more visualization because I tried to make the lanes sort of like a track lane but then I realized CSS isnt compatible with gradio so I sucked it up with html, apologies.
         lane_html += f"""
         <div style="
             padding:12px;
@@ -86,8 +85,8 @@ def render_heat(heat, current_index, found_index):
             <span>{status}</span>
         </div>
         """
-
-    wrapped = f"""
+#create a rectangle so the lanes fit inside of it
+    rectangle = f"""
     <div style="
         background:#ECEFF1;
         padding:25px;
@@ -99,42 +98,45 @@ def render_heat(heat, current_index, found_index):
         <h3 style="text-align:center; color:#0D47A1; margin-bottom:15px;">
             🏟️ Heat Lane Tracker
         </h3>
-        {progress_html}
+        {prog_html}
         {lane_html}
     </div>
     """
-    return wrapped
+    return rectangle
 
-# -----------------------------------------------------
-# Linear search step logic
-# -----------------------------------------------------
-def step_search(heat, target, idx):
-    if idx == -1:
-        idx = 0
-    if idx >= len(heat):
+#  --- HERE IS THE STEP BY STEP LINEAR SEARCH LOGIC
+
+def step_search(heat, target, var):
+    if var == -1:
+        var = 0.    # if this is the first click, we start at index 0
+    if var >= len(heat):  # If we've gone past the heat length, we didn’t find the runner :((
         return (
-            f"🚫 <b>{target}</b> isn't in this heat!<br>All lanes are checked.",
-            render_heat(heat, -1, -1),
-            -2
+            f" <b>{target}</b> isn't in this heat, go find them coach!<br>All lanes are checked.",
+            html_heat(heat, -1, -1),
+            -2 #stop searching
         )
-    if heat[idx].lower() == target.lower():
-        return (
-            f"🎯 <b>{target}</b> found in Lane {idx+1}!",
-            render_heat(heat, idx, idx),
+    if heat[var].lower() == target.lower():
+        return ( #if we have found the runner at the index
+            f"🎯 <b>{target}</b> found in Lane {var+1}!",
+            html_heat(heat, var, var),
             -2
-        )
-    return (
-        f"🔎 Checking Lane {idx+1}…",
-        render_heat(heat, idx, -1),
-        idx + 1
+        ) #otherwise this continues to check the next lane
+    return ( 
+        f"🔎 Checking Lane... {var+1}…",
+        html_heat(heat, var, -1),
+        var + 1
     )
 
-# -----------------------------------------------------
-# Story stage control
-# -----------------------------------------------------
-def next_stage(stage, target_input, heat):
+
+# --- This function controls the most important part of the app
+# --- Step 1 - generate the heat
+# --- Step 2 - display the instructions of the app
+# --- Step 3 - search through each and all lanes
+
+
+def next_step(stage, target_input, heat):
     target = (target_input or "").strip()
-    if stage == 1:
+    if stage == 1: #ensure the user actually typed a name, EDGE-CASE
         if target == "":
             return (
                 "⚠️ Please enter the sprinter you're trying to locate...",
@@ -142,37 +144,35 @@ def next_stage(stage, target_input, heat):
                 gr.update(visible=False),
                 stage,
                 heat
-            )
+            ) #once we know the name is validated, create the heat
         new_heat = create_heat(target, 8)
         return (
-            f"🏁 Heat generated!<br><br>"
+            f" Heat generated!<br><br>"
             f"Linear search will now look for <b>{target}</b> lane by lane. "
             "Remember: the list is unsorted, so each lane must be checked in order.",
             gr.update(visible=True),
             gr.update(value="Start Searching"),
             2,
             new_heat
-        )
+        ) #here we are actually providing information about linear search
     if stage == 2:
         info = (
             "<div style='background:#CFD8DC; padding:12px; border-radius:8px; margin-top:10px;'>"
-            "<h4 style='margin:0; color:#37474F;'>💡 Linear Search Info</h4>"
+            "<h4 style='margin:0; color:#37474F;'> Linear Search Info</h4>"
             "<ul style='margin-top:5px;'>"
             "<li>⏱ Time complexity: O(n) in the worst case.</li>"
             "</ul></div>"
         )
         return (
-            f"🚦 Searching for <b>{target}</b>…{info}",
+            f" Searching for <b>{target}</b>…{info}",
             gr.update(visible=True),
-            gr.update(value="Next Lane ➡️"),
+            gr.update(value="Next Lane."),
             3,
             heat
         )
     return "", gr.update(), gr.update(), stage, heat
 
-# -----------------------------------------------------
-# Reset app
-# -----------------------------------------------------
+#now we are resetting everything to the start 
 def reset_app():
     return (
         "🏃‍♂️ Welcome Coach!<br>Type the runner's name to start the search.",
@@ -184,13 +184,11 @@ def reset_app():
         -1
     )
 
-# -----------------------------------------------------
-# Build Gradio UI
-# -----------------------------------------------------
+# --- HERE we are building the Gradio interface
 with gr.Blocks() as demo:
 
-    gr.Markdown(
-        """
+    gr.Markdown( # create TOP header
+        """ 
         <h1 style="text-align:center; color:#0D47A1;">
         🏟️ Linear Search Tracker
         </h1>
@@ -199,38 +197,39 @@ with gr.Blocks() as demo:
         </p>
         """
     )
-
-    story = gr.HTML("🏃‍♂️ Welcome Coach!<br>Type the runner's name to start the search.")
+#diplay the boxes
+    storyline = gr.HTML("🏃‍♂️ Welcome Coach!<br>Type the runner's name to start the search.")
     name_box = gr.Textbox(label="Athlete Name", placeholder="e.g., Lyles")
     heat_display = gr.HTML("")
 
     main_button = gr.Button("Find Runner :)")
 
-    # States
+      # internal states to track where we are
+
     stage_state = gr.State(1)
     heat_state = gr.State([])
-    search_idx = gr.State(-1)
+    search_var = gr.State(-1)
 
-    # Advance stage
-    def handle_stage(stage, name, heat):
-        return next_stage(stage, name, heat)
+  
+    def handle_steps(stage, name, heat):
+        return next_step(stage, name, heat)
+#move through steps 1 2 and 3
 
     main_button.click(
-        fn=handle_stage,
+        fn=handle_steps,
         inputs=[stage_state, name_box, heat_state],
-        outputs=[story, heat_display, main_button, stage_state, heat_state]
+        outputs=[storyline, heat_display, main_button, stage_state, heat_state]
     )
-
-    # Lane-by-lane search
-    def handle_step(stage, heat, name, idx):
+#ACTUALLY check the lanes during step 3 
+    def lanes_search(stage, heat, name, idx):
         if stage == 3:
             return step_search(heat, name, idx)
         return gr.update(), gr.update(), idx
 
     main_button.click(
-        fn=handle_step,
-        inputs=[stage_state, heat_state, name_box, search_idx],
-        outputs=[story, heat_display, search_idx]
+        fn=lanes_search,
+        inputs=[stage_state, heat_state, name_box, search_var],
+        outputs=[storyline, heat_display, search_var]
     )
-
+#launch the app
 demo.launch(share=True)
