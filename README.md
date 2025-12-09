@@ -13,6 +13,13 @@ The worst case is where the runner is in the last lane or isn’t in the heat at
 Best case: 
 [Best Case Video](https://drive.google.com/file/d/1c4XFr9RVoxXZH-mi3NUe2o_0y30eFqa_/view?usp=sharing)
 The best case here would be an instance where the runner is put in the very first lane of the heat. The program would find them immediately, so only one check is needed throughout the whole scenario. This is the fastest way as it shows how efficiently the algorithm works when the athletes name is at the beginning.
+
+Edge Case: [Edge Case Video](https://drive.google.com/file/d/1XCwqzf_0Hdvc43Ocx-eCBTrrytw7VOTo/view?usp=sharing)
+
+If the user does not search for any name, the app will kindly ask them to enter a name. This also makes sure the search does not run with no data being input, which keeps it stable and user-friendly. Another example could be if a user types the name with a typo, it might not end up finding the runner. However, I did end up making the program run case-insensitively, so it can handle capitalization differences when a name is being searched. 
+
+
+
 # Problem Breakdown
 ### Why I chose Linear Search:
 I chose to implement and interpret Linear Search through a Track and Field-themed interactive app. The premise of the game is simple, as the user plays the role of a track coach preparing his heat for a big race. In order to prepare for the race, the coach must type the name of the runner they want to find in the heat, and the name is saved and used throughout the duration of the app to find themselves. As the search begins, the app randomly generates a heat of eight world-class sprinters. Each athlete is showcased inside of a lane box that includes an index number, lane number, and the athlete’s name. The lane assignments are stored internally in a Python list. Also, there is a controlled probability rate that the runner on the coach is searching for may or may not even appear in the heat list. This ensures that the program I built can demonstrate both possible outcomes of Linear Search, as the target could be or could not be found. 
