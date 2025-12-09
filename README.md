@@ -50,3 +50,7 @@ All you need to do is:
 1. Download the project files, (e.g, app.py & requirements.txt) and open the terminal in the project file
 2. type pip install -r requirements.txt, and then type python3 app.py
 3. Copy the link that was given then in the terminal and paste it into your browser, and then you will be able to interact with the app!
+
+## Hugging Face Link
+
+[https://huggingface.co/spaces/Shxhnoor/Linear-Search-Program](https://huggingface.co/spaces/Shxhnoor/Linear-Search-Program)
