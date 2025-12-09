@@ -8,7 +8,7 @@ def create_heat(target_runner, count):
     athlete_pool = [
         "Lyles", "Coleman", "Omanyala", "Blake",
         "De Grasse", "Jacobs", "Hughes", "Simbine",
-        "Kerley", "Bednarek"
+        "Kerley", "Shahnoor"
     ]
     if target_runner not in athlete_pool:
         athlete_pool.append(target_runner)
@@ -137,7 +137,7 @@ def next_stage(stage, target_input, heat):
     if stage == 1:
         if target == "":
             return (
-                "⚠️ Please enter the sprinter you're trying to locate.",
+                "⚠️ Please enter the sprinter you're trying to locate...",
                 gr.update(),
                 gr.update(visible=False),
                 stage,
