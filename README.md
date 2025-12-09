@@ -54,3 +54,10 @@ All you need to do is:
 ## Hugging Face Link
 
 [https://huggingface.co/spaces/Shxhnoor/Linear-Search-Program](https://huggingface.co/spaces/Shxhnoor/Linear-Search-Program)
+
+## Author & Acknowledgement
+
+This project was created by Shahnoor Sarfraz, CISC 121 on December 6, 2025.
+
+In terms of AI usage up to Level 4: Any AI that I have used was mainly used with the ChatGPT mini model-5 to **only** ask for clarification of certain inquiries, and not necessarily the answer for it. Below is where I will be stating where AI had helped me with certain areas in my work.
+
